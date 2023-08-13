@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from .models import Checkout
+from .serializers import CheckoutSerializer
 
-# Create your views here.
+
+class CheckoutCreate(generics.CreateAPIView):
+    serializer_class = CheckoutSerializer
+    permission_classes = [permissions.AllowAny,]
+    queryset = Checkout.objects.all()
+
+
+class CheckoutList(generics.ListAPIView):
+    serializer_class = CheckoutSerializer
+    permission_classes = [permissions.AllowAny,]
+    queryset = Checkout.objects.all()
+
+
+class CheckoutDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CheckoutSerializer
+    permission_classes = [permissions.AllowAny,]
+    queryset = Checkout.objects.all()
+    lookup_field = 'pk'
